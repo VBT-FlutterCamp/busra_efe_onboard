@@ -1,16 +1,3 @@
 # hm_onboard
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Screen_one](https://user-images.githubusercontent.com/58303242/154528925-fc7090d8-b674-4cbf-baf4-cf7c2a3f34a5.png)   ![Screen_two](https://user-images.githubusercontent.com/58303242/154528949-3afc7691-6877-48b5-bcfc-15dd2812dbb7.png)   ![Screen_three](https://user-images.githubusercontent.com/58303242/154528958-fbec4c62-dc28-4169-ad55-bd8e27e74358.png)
