@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hm_onboard/feature/login/login_view.dart';
 import 'package:hm_onboard/feature/onboard/model/onboard_model.dart';
 import 'package:kartal/kartal.dart';
+import 'package:hm_onboard/product/components/app_string.dart';
 
 class OnboardView extends StatefulWidget {
   OnboardView({Key? key}) : super(key: key);
@@ -61,26 +63,15 @@ class _OnboardViewState extends State<OnboardView> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SvgPicture.asset(
-          modelList[index].image,
-          height: context.height * 0.65,
-          width: context.width * 0.9,
-        ),
-        Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-                modelList.length, (index) => navigateList(context, index))),
+        _svgPicture(index, context),
         SizedBox(
-          height: context.dynamicHeight(0.01),
+          height: context.dynamicHeight(0.04),
         ),
-        Text(
-          modelList[index].title,
-          style: context.textTheme.headline5?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: context.appTheme.primaryColor),
-          textAlign: TextAlign.center,
+        indicatorView(context),
+        SizedBox(
+          height: context.dynamicHeight(0.04),
         ),
+        _titleText(index, context),
         SizedBox(
           height: context.dynamicHeight(0.01),
         ),
@@ -90,6 +81,30 @@ class _OnboardViewState extends State<OnboardView> {
         ),
         _navigateButtons(context)
       ],
+    );
+  }
+
+  Row indicatorView(BuildContext context) {
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+            modelList.length, (index) => navigateList(context, index)));
+  }
+
+  Text _titleText(int index, BuildContext context) {
+    return Text(
+      modelList[index].title,
+      style: context.textTheme.headline5?.copyWith(
+          fontWeight: FontWeight.bold, color: context.appTheme.primaryColor),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  SvgPicture _svgPicture(int index, BuildContext context) {
+    return SvgPicture.asset(
+      modelList[index].image,
+      height: context.height * 0.5,
     );
   }
 
@@ -113,13 +128,13 @@ class _OnboardViewState extends State<OnboardView> {
             style: ElevatedButton.styleFrom(
                 primary: context.appTheme.primaryColor.withOpacity(0.5)),
             onPressed: () {
-              if (_currentIndex != modelList.first) {
+              if (_currentIndex != 0) {
                 _controller?.previousPage(
                     duration: context.durationLow, curve: Curves.easeIn);
               }
             },
-            child: Text(
-              'Skip',
+            child: const Text(
+              AppString.butonSkip,
             )),
         SizedBox(
           width: context.dynamicWidth(0.035),
@@ -131,9 +146,14 @@ class _OnboardViewState extends State<OnboardView> {
               if (_currentIndex != modelList.length - 1) {
                 _controller?.nextPage(
                     duration: context.durationLow, curve: Curves.easeIn);
+              } else if (_currentIndex == modelList.length - 1) {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: ((context) => LoginView())),
+                    (route) => false);
               }
             },
-            child: Text('Next'))
+            child: const Text(AppString.buttonNext))
       ],
     );
   }
